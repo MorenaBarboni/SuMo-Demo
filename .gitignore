@@ -1,8 +1,8 @@
 node_modules
-CampusCoin/artifacts
-CampusCoin/cache
-CampusCoin/coverage
-CampusCoin/node_modules
-CampusCoin/coverage.json
-CampusCoin/sumo
+artifacts
+cache
+coverage
+node_modules
+coverage.json
+sumo
 
