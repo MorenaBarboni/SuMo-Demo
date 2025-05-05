@@ -4,5 +4,7 @@ cache
 coverage
 node_modules
 coverage.json
+mochaOutput.json
+testMatrix.json
 sumo
 

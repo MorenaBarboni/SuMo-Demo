@@ -7,6 +7,8 @@ contract CampusCoin is ERC20 {
     address public admin;
     address public university;
 
+    uint256 public constant UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin
+
     mapping(address => bool) public isStudent;
     mapping(address => uint256) public totalSpent;
 
@@ -18,7 +20,7 @@ contract CampusCoin is ERC20 {
 
     mapping(address => ServiceProvider) public serviceProviders;
 
-      // === EVENTS ===
+    // === EVENTS ===
     event StudentAdded(address indexed student);
     event StudentRemoved(address indexed student);
     event ServiceProviderAdded( address indexed provider, string name, string category );
@@ -37,18 +39,18 @@ contract CampusCoin is ERC20 {
         admin = msg.sender;
         university = _university;
 
-        _mint(msg.sender, 3_000 * 10 ** decimals());
+        _mint(msg.sender, 3_000 * UNIT);
     }
 
     // === MINTING, BURNING AND TRANSFERING TOKENS ===
     function mint(address to, uint256 amount) public onlyAdmin {
         require(isStudent[to], "Can only mint to registered students");
-        _mint(to, amount);        
+        _mint(to, amount * UNIT);        
         emit TokensMinted(to, amount);
     }
 
     function burn(uint256 amount) public {
-        _burn(msg.sender, amount);        
+        _burn(msg.sender, amount * UNIT);        
     }
 
     function transfer(
@@ -56,7 +58,7 @@ contract CampusCoin is ERC20 {
         uint256 amount
     ) public override returns (bool) {
         require(isStudent[to], "Recipient must be a registered student");
-        return super.transfer(to, amount);
+        return super.transfer(to, amount * UNIT);
     }
 
 
@@ -110,13 +112,13 @@ contract CampusCoin is ERC20 {
             "Recipient must be an active service provider"
         );
 
-        uint256 fee = amount / 100; // 1%
-        uint256 amountAfterFee = amount - fee;
+        uint256 fee = (amount / 100) * UNIT; // 1%
+        uint256 amountAfterFee = amount * UNIT - fee;
 
         _transfer(msg.sender, university, fee);
         _transfer(msg.sender, to, amountAfterFee);
 
-        totalSpent[msg.sender] += amount;
+        totalSpent[msg.sender] += amount * UNIT;
         emit ServicePaid(msg.sender, to, amountAfterFee, fee);
     }
 }
