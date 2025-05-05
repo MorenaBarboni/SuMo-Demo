@@ -148,16 +148,22 @@ describe("CampusCoin", function () {
       await campusCoin.addServiceProvider(provider.address, "Gym", "Fitness");
     });
 
-    it("Should pay service", async () => {
+    it("Should pay service with 1% fee", async () => {
       const amount = 1n;
+      const fee = amount / 100n;           // 1% fee as BigInt
+      const toReceive = amount - fee; // 99% goes to provider
+
       await campusCoin.connect(student1).payService(provider.address, amount);
 
       const providerBal = await campusCoin.balanceOf(provider.address);
+      const universityBal = await campusCoin.balanceOf(university.address);
       const studentSpent = await campusCoin.totalSpent(student1.address);
 
-      expect(providerBal).to.equal(amount * 10n ** 18n);
-      expect(studentSpent).to.equal(amount * 10n ** 18n);
+      expect(providerBal).to.equal(toReceive);
+      expect(universityBal).to.equal(fee);
+      expect(studentSpent).to.equal(amount);
     });
+
 
     it("Should fail if payment sender is not a student", async () => {
       await expect(
