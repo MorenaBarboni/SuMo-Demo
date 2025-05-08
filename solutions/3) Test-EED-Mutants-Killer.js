@@ -63,7 +63,7 @@ describe("CampusCoin", function () {
     });
 
     it("Should mint tokens to student", async () => {
-      await campusCoin.mint(student1.address, "100");
+      await expect(campusCoin.mint(student1.address, "100")).to.emit(campusCoin, "TokensMinted").withArgs(student1.address, "100");
       const balance = await campusCoin.balanceOf(student1.address);
       expect(balance).to.equal("100000000000000000000");
     });
@@ -155,7 +155,7 @@ describe("CampusCoin", function () {
   describe("Service Payments", () => {
     before(async () => {
       await campusCoin.addStudent(student1.address);
-      await expect(campusCoin.mint(student1.address, "100")).to.emit(campusCoin, "TokensMinted").withArgs(student1.address, "100");
+      await campusCoin.mint(student1.address, "100");
       await campusCoin.addServiceProvider(provider.address, "Gym", "Fitness");
     });
 
