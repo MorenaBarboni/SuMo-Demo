@@ -5,6 +5,7 @@ describe("CampusCoin", function () {
   let campusCoin;
   let admin, university, student;
 
+
   /** GLOBAL TEST SETUP: Deply CampusCoin and get test EOAs */
   before(async () => {
     [admin, university, student] = await ethers.getSigners();
@@ -25,7 +26,7 @@ describe("CampusCoin", function () {
     it("Should mint tokens to a student", async () => {
       await campusCoin.mint(student.address, "100");
       const balance = await campusCoin.balanceOf(student.address);
-      expect(balance).to.equal((100 * UNIT).toString());
+      expect(balance).to.equal(ethers.parseUnits("100", 18));
     });
   });
 

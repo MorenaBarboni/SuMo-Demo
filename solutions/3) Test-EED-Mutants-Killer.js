@@ -5,7 +5,6 @@ const { ethers } = require("hardhat");
 describe("CampusCoin", function () {
   let campusCoin;
   let admin, university, student1, student2, provider;
-  const UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin
 
   before(async () => {
     [admin, university, student1, student2, provider] = await ethers.getSigners();
@@ -32,6 +31,49 @@ describe("CampusCoin", function () {
     });
   });
 
+  describe("Custom ERC-20", () => {
+    before(async () => {
+      await campusCoin.addStudent(student1.address);
+      await campusCoin.addStudent(student2.address);
+    });
+
+    it("Should mint tokens to student", async () => {
+      await expect(campusCoin.mint(student1.address, "100")).to.emit(campusCoin, "TokensMinted").withArgs(student1.address, "100");
+      const balance = await campusCoin.balanceOf(student1.address);
+      expect(balance).to.equal(ethers.parseUnits("100", 18));
+    });
+
+    it("Should not mint tokens to non-student", async () => {
+      await expect(
+        campusCoin.connect(student1).mint(student2.address, "1")
+      ).to.be.revertedWith("Only admin can call this");
+    });
+
+    it("Should not mint tokens from non-admin", async () => {
+      await expect(
+        campusCoin.mint(provider.address, "50")
+      ).to.be.revertedWith("Can only mint to registered students");
+    });
+
+    it("Should burn tokens", async () => {
+      await campusCoin.connect(student1).burn("50")
+      const balance = await campusCoin.balanceOf(student1.address);
+      expect(balance).to.equal(ethers.parseUnits("50", 18));
+    });
+
+    it("Should transfer between students", async () => {
+      await campusCoin.connect(student1).transfer(student2.address, "10");
+      const balance = await campusCoin.balanceOf(student2.address);
+      expect(balance).to.equal(ethers.parseUnits("10", 18));
+    });
+
+    it("Should not transfer to non-student", async () => {
+      await expect(
+        campusCoin.connect(student1).transfer(provider.address, "10")
+      ).to.be.revertedWith("Recipient must be a registered student");
+    });
+  });
+
   describe("Student management", () => {
 
     it("Should add and remove student", async () => {
@@ -54,49 +96,6 @@ describe("CampusCoin", function () {
       await expect(
         campusCoin.connect(student1).removeStudent(student1.address)
       ).to.be.revertedWith("Only admin can call this");
-    });
-  });
-
-  describe("Custom ERC-20", () => {
-    before(async () => {
-      await campusCoin.addStudent(student1.address);
-      await campusCoin.addStudent(student2.address);
-    });
-
-    it("Should mint tokens to student", async () => {
-      await expect(campusCoin.mint(student1.address, "100")).to.emit(campusCoin, "TokensMinted").withArgs(student1.address, "100");
-      const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal((100 * UNIT).toString());
-    });
-
-    it("Should not mint tokens to non-student", async () => {
-      await expect(
-        campusCoin.connect(student1).mint(student2.address, "1")
-      ).to.be.revertedWith("Only admin can call this");
-    });
-
-    it("Should not mint tokens from non-admin", async () => {
-      await expect(
-        campusCoin.mint(provider.address, "50")
-      ).to.be.revertedWith("Can only mint to registered students");
-    });
-
-    it("Should burn tokens", async () => {
-      await campusCoin.connect(student1).burn("50")
-      const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal((50 * UNIT).toString());
-    });
-
-    it("Should transfer between students", async () => {
-      await campusCoin.connect(student1).transfer(student2.address, "10");
-      const balance = await campusCoin.balanceOf(student2.address);
-      expect(balance).to.equal((10 * UNIT).toString());
-    });
-
-    it("Should not transfer to non-student", async () => {
-      await expect(
-        campusCoin.connect(student1).transfer(provider.address, "10")
-      ).to.be.revertedWith("Recipient must be a registered student");
     });
   });
 
