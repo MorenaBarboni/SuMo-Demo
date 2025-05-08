@@ -60,7 +60,7 @@ describe("CampusCoin", function () {
     it("Should mint tokens to student", async () => {
       await campusCoin.mint(student1.address, "100");
       const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("100");
+      expect(balance).to.equal("100000000000000000000");
     });
 
     it("Should not mint tokens to non-student", async () => {
@@ -78,13 +78,13 @@ describe("CampusCoin", function () {
     it("Should burn tokens", async () => {
       await campusCoin.connect(student1).burn("50");
       const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("50");
+      expect(balance).to.equal("50000000000000000000");
     });
 
     it("Should transfer between students", async () => {
       await campusCoin.connect(student1).transfer(student2.address, "10");
       const balance = await campusCoin.balanceOf(student2.address);
-      expect(balance).to.equal("10");
+      expect(balance).to.equal("10000000000000000000");
     });
 
     it("Should not transfer to non-student", async () => {
@@ -152,10 +152,10 @@ describe("CampusCoin", function () {
       const amount = 1n;
       await campusCoin.connect(student1).payService(provider.address, amount);
 
-      const providerBal = await campusCoin.balanceOf(provider.address);
+      const providerBalance = await campusCoin.balanceOf(provider.address);
       const studentSpent = await campusCoin.totalSpent(student1.address);
 
-      expect(providerBal).to.equal(amount * 10n ** 18n);
+      expect(providerBalance).to.equal(amount * 10n ** 18n);
       expect(studentSpent).to.equal(amount * 10n ** 18n);
     });
 
