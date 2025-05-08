@@ -163,7 +163,7 @@ describe("CampusCoin", function () {
       const UNIT = 10n ** 18n;
       const amount = 1n  * UNIT;
       const fee = amount / 100n; // 1% of 1 CC
-      const providerAmount = amount - fee;
+      const netAmount = amount - fee;
     
       await campusCoin.connect(student1).payService(provider.address, "1");
     
@@ -171,7 +171,7 @@ describe("CampusCoin", function () {
       const universityBalance = await campusCoin.balanceOf(university.address);
       const studentSpent = await campusCoin.totalSpent(student1.address);
     
-      expect(providerBalance).to.equal(providerAmount);
+      expect(providerBalance).to.equal(netAmount);
       expect(universityBalance).to.equal(fee);
       expect(studentSpent).to.equal(amount);
     });
