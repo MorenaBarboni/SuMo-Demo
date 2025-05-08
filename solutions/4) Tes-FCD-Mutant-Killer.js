@@ -161,11 +161,11 @@ describe("CampusCoin", function () {
 
     it("Should pay service with 1% fee", async () => {
       const UNIT = 10n ** 18n;
-      const amount = 1n;
-      const fee = (amount * UNIT) / 100n; // 1% of 1 CC
-      const providerAmount = amount * UNIT - fee;
+      const amount = 1n  * UNIT;
+      const fee = amount / 100n; // 1% of 1 CC
+      const providerAmount = amount - fee;
     
-      await campusCoin.connect(student1).payService(provider.address, amount);
+      await campusCoin.connect(student1).payService(provider.address, "1");
     
       const providerBalance = await campusCoin.balanceOf(provider.address);
       const universityBalance = await campusCoin.balanceOf(university.address);
@@ -173,7 +173,7 @@ describe("CampusCoin", function () {
     
       expect(providerBalance).to.equal(providerAmount);
       expect(universityBalance).to.equal(fee);
-      expect(studentSpent).to.equal(amount * UNIT);
+      expect(studentSpent).to.equal(amount);
     });
     
 
