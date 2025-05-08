@@ -4,6 +4,7 @@ const { ethers } = require("hardhat");
 describe("CampusCoin", function () {
   let campusCoin;
   let admin, university, student1, student2, provider;
+  const UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin
 
   before(async () => {
     [admin, university, student1, student2, provider] = await ethers.getSigners();
@@ -60,7 +61,7 @@ describe("CampusCoin", function () {
     it("Should mint tokens to student", async () => {
       await campusCoin.mint(student1.address, "100");
       const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("100000000000000000000");
+      expect(balance).to.equal((100 * UNIT).toString());
     });
 
     it("Should not mint tokens to non-student", async () => {
@@ -78,13 +79,13 @@ describe("CampusCoin", function () {
     it("Should burn tokens", async () => {
       await campusCoin.connect(student1).burn("50");
       const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("50000000000000000000");
+      expect(balance).to.equal((50 * UNIT).toString());
     });
 
     it("Should transfer between students", async () => {
       await campusCoin.connect(student1).transfer(student2.address, "10");
       const balance = await campusCoin.balanceOf(student2.address);
-      expect(balance).to.equal("10000000000000000000");
+      expect(balance).to.equal((10 * UNIT).toString());
     });
 
     it("Should not transfer to non-student", async () => {

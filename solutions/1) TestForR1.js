@@ -25,7 +25,7 @@ describe("CampusCoin", function () {
     it("Should mint tokens to a student", async () => {
       await campusCoin.mint(student.address, "100");
       const balance = await campusCoin.balanceOf(student.address);
-      expect(balance).to.equal("100000000000000000000");
+      expect(balance).to.equal((100 * UNIT).toString());
     });
   });
 
