@@ -150,14 +150,14 @@ describe("CampusCoin", function () {
     });
 
     it("Should pay service", async () => {
-      const amount = 1n;
+      const amount = "1";
       await campusCoin.connect(student1).payService(provider.address, amount);
 
       const providerBalance = await campusCoin.balanceOf(provider.address);
       const studentSpent = await campusCoin.totalSpent(student1.address);
 
-      expect(providerBalance).to.equal(amount * 10n ** 18n);
-      expect(studentSpent).to.equal(amount * 10n ** 18n);
+      expect(providerBalance).to.equal(ethers.parseUnits(amount, 18));
+      expect(studentSpent).to.equal(ethers.parseUnits(amount, 18));
     });
 
     it("Should fail if payment sender is not a student", async () => {

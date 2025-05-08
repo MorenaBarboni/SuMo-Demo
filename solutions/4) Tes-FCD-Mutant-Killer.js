@@ -1,3 +1,4 @@
+
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
@@ -30,27 +31,6 @@ describe("CampusCoin", function () {
     });
   });
 
-  describe("Student management", () => {
-
-    it("Should add and remove student", async () => {
-      await campusCoin.addStudent(student1.address);
-      expect(await campusCoin.isStudent(student1.address)).to.be.true;
-
-      await campusCoin.removeStudent(student1.address);
-      expect(await campusCoin.isStudent(student1.address)).to.be.false;
-    });
-
-    it("Should only allow admin to manage students", async () => {
-      await expect(
-        campusCoin.connect(student1).addStudent(student1.address)
-      ).to.be.revertedWith("Only admin can call this");
-
-      await expect(
-        campusCoin.connect(student1).removeStudent(student1.address)
-      ).to.be.revertedWith("Only admin can call this");
-    });
-  });
-
   describe("Custom ERC-20", () => {
     before(async () => {
       await campusCoin.addStudent(student1.address);
@@ -58,9 +38,9 @@ describe("CampusCoin", function () {
     });
 
     it("Should mint tokens to student", async () => {
-      await campusCoin.mint(student1.address, "100");
+      await expect(campusCoin.mint(student1.address, "100")).to.emit(campusCoin, "TokensMinted").withArgs(student1.address, "100");
       const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("100");
+      expect(balance).to.equal(ethers.parseUnits("100", 18));
     });
 
     it("Should not mint tokens to non-student", async () => {
@@ -76,15 +56,15 @@ describe("CampusCoin", function () {
     });
 
     it("Should burn tokens", async () => {
-      await campusCoin.connect(student1).burn("50");
+      await campusCoin.connect(student1).burn("50")
       const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("50");
+      expect(balance).to.equal(ethers.parseUnits("50", 18));
     });
 
     it("Should transfer between students", async () => {
       await campusCoin.connect(student1).transfer(student2.address, "10");
       const balance = await campusCoin.balanceOf(student2.address);
-      expect(balance).to.equal("10");
+      expect(balance).to.equal(ethers.parseUnits("10", 18));
     });
 
     it("Should not transfer to non-student", async () => {
@@ -94,16 +74,45 @@ describe("CampusCoin", function () {
     });
   });
 
+  describe("Student management", () => {
+
+    it("Should add and remove student", async () => {
+      await expect(campusCoin.addStudent(student1.address))
+        .to.emit(campusCoin, "StudentAdded")
+        .withArgs(student1.address);
+      expect(await campusCoin.isStudent(student1.address)).to.be.true;
+
+      await expect(campusCoin.removeStudent(student1.address))
+        .to.emit(campusCoin, "StudentRemoved")
+        .withArgs(student1.address);
+      expect(await campusCoin.isStudent(student1.address)).to.be.false;
+    });
+
+    it("Should only allow admin to manage students", async () => {
+      await expect(
+        campusCoin.connect(student1).addStudent(student1.address)
+      ).to.be.revertedWith("Only admin can call this");
+
+      await expect(
+        campusCoin.connect(student1).removeStudent(student1.address)
+      ).to.be.revertedWith("Only admin can call this");
+    });
+  });
+
   describe("Service Provider management", () => {
 
     it("Should add and remove provider", async () => {
-      await campusCoin.addServiceProvider(provider.address, "Coffee Shop", "Food");
+      await expect(campusCoin.addServiceProvider(provider.address, "Coffee Shop", "Food"))
+        .to.emit(campusCoin, "ServiceProviderAdded")
+        .withArgs(provider.address, "Coffee Shop", "Food");
       const sp = await campusCoin.serviceProviders(provider.address);
       expect(sp.name).to.equal("Coffee Shop");
       expect(sp.category).to.equal("Food");
       expect(sp.active).to.be.true;
 
-      await campusCoin.removeServiceProvider(provider.address);
+      await expect(campusCoin.removeServiceProvider(provider.address))
+        .to.emit(campusCoin, "ServiceProviderRemoved")
+        .withArgs(provider.address);
       const updated = await campusCoin.serviceProviders(provider.address);
       expect(updated.active).to.be.false;
     });
@@ -121,7 +130,9 @@ describe("CampusCoin", function () {
 
     it("Should update provider", async () => {
       await campusCoin.addServiceProvider(provider.address, "Cafe", "Food");
-      await campusCoin.updateServiceProvider(provider.address, "Bookstore", "Retail", true);
+      await expect(campusCoin.updateServiceProvider(provider.address, "Bookstore", "Retail", true))
+        .to.emit(campusCoin, "ServiceProviderUpdated")
+        .withArgs(provider.address, "Bookstore", "Retail", true);
       const updated = await campusCoin.serviceProviders(provider.address);
       expect(updated.name).to.equal("Bookstore");
       expect(updated.category).to.equal("Retail");
@@ -149,21 +160,22 @@ describe("CampusCoin", function () {
     });
 
     it("Should pay service with 1% fee", async () => {
+      const UNIT = 10n ** 18n;
       const amount = 1n;
-      const fee = amount / 100n;           // 1% fee as BigInt
-      const toReceive = amount - fee; // 99% goes to provider
-
+      const fee = (amount * UNIT) / 100n; // 1% of 1 CC
+      const providerAmount = amount * UNIT - fee;
+    
       await campusCoin.connect(student1).payService(provider.address, amount);
-
-      const providerBal = await campusCoin.balanceOf(provider.address);
-      const universityBal = await campusCoin.balanceOf(university.address);
+    
+      const providerBalance = await campusCoin.balanceOf(provider.address);
+      const universityBalance = await campusCoin.balanceOf(university.address);
       const studentSpent = await campusCoin.totalSpent(student1.address);
-
-      expect(providerBal).to.equal(toReceive);
-      expect(universityBal).to.equal(fee);
-      expect(studentSpent).to.equal(amount);
+    
+      expect(providerBalance).to.equal(providerAmount);
+      expect(universityBalance).to.equal(fee);
+      expect(studentSpent).to.equal(amount * UNIT);
     });
-
+    
 
     it("Should fail if payment sender is not a student", async () => {
       await expect(

@@ -29,5 +29,4 @@ describe("CampusCoin", function () {
       expect(balance).to.equal(ethers.parseUnits("100", 18));
     });
   });
-
 });
