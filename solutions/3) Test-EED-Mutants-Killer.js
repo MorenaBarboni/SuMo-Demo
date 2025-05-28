@@ -158,7 +158,14 @@ describe("CampusCoin", function () {
       await campusCoin.mint(student1.address, "100");
       await campusCoin.addServiceProvider(provider.address, "Gym", "Fitness");
     });
-
+    
+    /**
+     * ---------------------------------------------------------
+     * This test is badly designed!
+     * ---------------------------------------------------------
+     * It expects the service provider to receive the full payment amount.
+     * The university fee is neither computed nor deducted from the payment.
+     */
     it("Should pay service", async () => {
       const amount = "1";
       await campusCoin.connect(student1).payService(provider.address, amount);
@@ -169,7 +176,7 @@ describe("CampusCoin", function () {
       expect(providerBalance).to.equal(ethers.parseUnits(amount, 18));
       expect(studentSpent).to.equal(ethers.parseUnits(amount, 18));
     });
-    
+
     it("Should fail if payment sender is not a student", async () => {
       await expect(
         campusCoin.connect(provider).payService(provider.address, "10")

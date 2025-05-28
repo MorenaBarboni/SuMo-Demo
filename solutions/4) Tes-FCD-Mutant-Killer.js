@@ -159,7 +159,15 @@ describe("CampusCoin", function () {
       await campusCoin.addServiceProvider(provider.address, "Gym", "Fitness");
     });
 
-    it("Should pay service with 1% fee", async () => {
+    /**
+     * ---------------------------------------------------------
+     * This test is well designed!
+     * ---------------------------------------------------------
+     * It computes the fee from the total amount paid,
+     * It transfers rhe fee to the university,
+     * It checks if the university received the fee
+    */
+    it("Should pay service with 1% fee", async () => {    
       const UNIT = 10n ** 18n;
       const amount = 1n  * UNIT;
       const fee = amount / 100n; // 1% of 1 CC

@@ -149,6 +149,13 @@ describe("CampusCoin", function () {
       await campusCoin.addServiceProvider(provider.address, "Gym", "Fitness");
     });
 
+    /**
+     * ---------------------------------------------------------
+     * This test is badly designed!
+     * ---------------------------------------------------------
+     * It expects the service provider to receive the full payment amount.
+     * The university fee is neither computed nor deducted from the payment.
+     */
     it("Should pay service", async () => {
       const amount = "1";
       await campusCoin.connect(student1).payService(provider.address, amount);
