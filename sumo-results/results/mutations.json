@@ -11,9 +11,9 @@
 			"replace": " = ",
 			"operator": "AOR",
 			"status": "live",
-			"testingTime": 1560,
+			"testingTime": 1537,
 			"id": "m3615dbb7",
-			"diff": "---|         totalSpent[msg.sender] += amount * UNIT;\n+++|         totalSpent[msg.sender] = amount * UNIT;\n"
+			"diff": "---|         totalSpent[msg.sender] += amount * UNIT;        \n+++|         totalSpent[msg.sender] = amount * UNIT;        \n"
 		},
 		{
 			"file": "/home/morena/GitHub/SuMo-Demo/contracts/CampusCoin.sol",
@@ -26,7 +26,7 @@
 			"replace": "address(this)",
 			"operator": "AVR",
 			"status": "killed",
-			"testingTime": 1482,
+			"testingTime": 1453,
 			"id": "m3150979e",
 			"diff": "---|         university = _university;\n+++|         university = address(this);\n"
 		},
@@ -41,7 +41,7 @@
 			"replace": "address(0)",
 			"operator": "AVR",
 			"status": "killed",
-			"testingTime": 1618,
+			"testingTime": 1510,
 			"id": "ma6e05b75",
 			"diff": "---|         university = _university;\n+++|         university = address(0);\n"
 		},
@@ -56,7 +56,7 @@
 			"replace": " * ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 1673,
+			"testingTime": 1590,
 			"id": "m47a686ab",
 			"diff": "---|     uint256 public constant UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin\n+++|     uint256 public constant UNIT = 10 * 18; // Token unit, representing 1 CampusCoin\n"
 		},
@@ -71,7 +71,7 @@
 			"replace": " != ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2334,
+			"testingTime": 2202,
 			"id": "mb9fc3b14",
 			"diff": "---|         require(msg.sender == admin, \"Only admin can call this\");\n+++|         require(msg.sender != admin, \"Only admin can call this\");\n"
 		},
@@ -86,7 +86,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "live",
-			"testingTime": 2287,
+			"testingTime": 2343,
 			"id": "m90783479",
 			"diff": "---|         _mint(msg.sender, 3_000 * UNIT);\n+++|         _mint(msg.sender, 3_000 + UNIT);\n"
 		},
@@ -101,7 +101,7 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2475,
+			"testingTime": 2294,
 			"id": "mf6a328e6",
 			"diff": "---|         _mint(msg.sender, 3_000 * UNIT);\n+++|         _mint(msg.sender, 3_000 ** UNIT);\n"
 		},
@@ -116,7 +116,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2043,
+			"testingTime": 2085,
 			"id": "m480bd09c",
 			"diff": "---|         _mint(to, amount * UNIT);        \n+++|         _mint(to, amount + UNIT);        \n"
 		},
@@ -131,7 +131,7 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2026,
+			"testingTime": 2335,
 			"id": "m49e1d080",
 			"diff": "---|         _mint(to, amount * UNIT);        \n+++|         _mint(to, amount ** UNIT);        \n"
 		},
@@ -146,7 +146,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2219,
+			"testingTime": 2273,
 			"id": "m2b076067",
 			"diff": "---|         _burn(msg.sender, amount * UNIT);        \n+++|         _burn(msg.sender, amount + UNIT);        \n"
 		},
@@ -161,7 +161,7 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 1887,
+			"testingTime": 2289,
 			"id": "m695b24ff",
 			"diff": "---|         _burn(msg.sender, amount * UNIT);        \n+++|         _burn(msg.sender, amount ** UNIT);        \n"
 		},
@@ -176,7 +176,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2103,
+			"testingTime": 2217,
 			"id": "m249b181f",
 			"diff": "---|         return super.transfer(to, amount * UNIT);\n+++|         return super.transfer(to, amount + UNIT);\n"
 		},
@@ -191,7 +191,7 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 1951,
+			"testingTime": 2384,
 			"id": "mf9d814bd",
 			"diff": "---|         return super.transfer(to, amount * UNIT);\n+++|         return super.transfer(to, amount ** UNIT);\n"
 		},
@@ -206,7 +206,7 @@
 			"replace": " < ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2113,
+			"testingTime": 2181,
 			"id": "m68fb3528",
 			"diff": "---|             bytes(serviceProviders[provider].name).length > 0,\n+++|             bytes(serviceProviders[provider].name).length < 0,\n"
 		},
@@ -221,7 +221,7 @@
 			"replace": " >=  ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2006,
+			"testingTime": 2369,
 			"id": "m09c73629",
 			"diff": "---|             bytes(serviceProviders[provider].name).length > 0,\n+++|             bytes(serviceProviders[provider].name).length >=  0,\n"
 		},
@@ -236,7 +236,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2181,
+			"testingTime": 2325,
 			"id": "m94e63971",
 			"diff": "---|         uint256 fee = (amount / 100) * UNIT; // 1%\n+++|         uint256 fee = (amount / 100) + UNIT; // 1%\n"
 		},
@@ -251,7 +251,7 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "live",
-			"testingTime": 2193,
+			"testingTime": 2315,
 			"id": "mf7a03626",
 			"diff": "---|         uint256 fee = (amount / 100) * UNIT; // 1%\n+++|         uint256 fee = (amount / 100) ** UNIT; // 1%\n"
 		},
@@ -266,7 +266,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2119,
+			"testingTime": 2305,
 			"id": "mf40af114",
 			"diff": "---|         uint256 fee = (amount / 100) * UNIT; // 1%\n+++|         uint256 fee = (amount + 100) * UNIT; // 1%\n"
 		},
@@ -281,7 +281,7 @@
 			"replace": " - ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2012,
+			"testingTime": 2418,
 			"id": "m810451ad",
 			"diff": "---|         uint256 fee = (amount / 100) * UNIT; // 1%\n+++|         uint256 fee = (amount - 100) * UNIT; // 1%\n"
 		},
@@ -296,7 +296,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "live",
-			"testingTime": 2356,
+			"testingTime": 2346,
 			"id": "m0f86227c",
 			"diff": "---|         uint256 amountAfterFee = amount * UNIT - fee;\n+++|         uint256 amountAfterFee = amount * UNIT + fee;\n"
 		},
@@ -311,7 +311,7 @@
 			"replace": " / ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2092,
+			"testingTime": 2388,
 			"id": "mff69f869",
 			"diff": "---|         uint256 amountAfterFee = amount * UNIT - fee;\n+++|         uint256 amountAfterFee = amount * UNIT / fee;\n"
 		},
@@ -326,7 +326,7 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2087,
+			"testingTime": 2358,
 			"id": "m6cd89f08",
 			"diff": "---|         uint256 amountAfterFee = amount * UNIT - fee;\n+++|         uint256 amountAfterFee = amount + UNIT - fee;\n"
 		},
@@ -341,7 +341,7 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 1966,
+			"testingTime": 2188,
 			"id": "m9395d7b3",
 			"diff": "---|         uint256 amountAfterFee = amount * UNIT - fee;\n+++|         uint256 amountAfterFee = amount ** UNIT - fee;\n"
 		},
@@ -356,9 +356,9 @@
 			"replace": " + ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 1982,
+			"testingTime": 2478,
 			"id": "m2bedfe93",
-			"diff": "---|         totalSpent[msg.sender] += amount * UNIT;\n+++|         totalSpent[msg.sender] += amount + UNIT;\n"
+			"diff": "---|         totalSpent[msg.sender] += amount * UNIT;        \n+++|         totalSpent[msg.sender] += amount + UNIT;        \n"
 		},
 		{
 			"file": "/home/morena/GitHub/SuMo-Demo/contracts/CampusCoin.sol",
@@ -371,9 +371,9 @@
 			"replace": " ** ",
 			"operator": "BOR",
 			"status": "killed",
-			"testingTime": 2055,
+			"testingTime": 2422,
 			"id": "m0ed4fd4e",
-			"diff": "---|         totalSpent[msg.sender] += amount * UNIT;\n+++|         totalSpent[msg.sender] += amount ** UNIT;\n"
+			"diff": "---|         totalSpent[msg.sender] += amount * UNIT;        \n+++|         totalSpent[msg.sender] += amount ** UNIT;        \n"
 		},
 		{
 			"file": "/home/morena/GitHub/SuMo-Demo/contracts/CampusCoin.sol",
@@ -386,7 +386,7 @@
 			"replace": "false",
 			"operator": "BLR",
 			"status": "killed",
-			"testingTime": 1817,
+			"testingTime": 2244,
 			"id": "mb20414e9",
 			"diff": "---|         isStudent[student] = true;\n+++|         isStudent[student] = false;\n"
 		},
@@ -401,7 +401,7 @@
 			"replace": "true",
 			"operator": "BLR",
 			"status": "killed",
-			"testingTime": 1851,
+			"testingTime": 2342,
 			"id": "m8e1ed1e7",
 			"diff": "---|         isStudent[student] = false;\n+++|         isStudent[student] = true;\n"
 		},
@@ -416,7 +416,7 @@
 			"replace": "false",
 			"operator": "BLR",
 			"status": "killed",
-			"testingTime": 1836,
+			"testingTime": 2380,
 			"id": "m5dbdaa89",
 			"diff": "---|         serviceProviders[provider] = ServiceProvider(name, category, true);\n+++|         serviceProviders[provider] = ServiceProvider(name, category, false);\n"
 		},
@@ -431,7 +431,7 @@
 			"replace": "true",
 			"operator": "BLR",
 			"status": "killed",
-			"testingTime": 1897,
+			"testingTime": 2342,
 			"id": "mf3be995d",
 			"diff": "---|         serviceProviders[provider].active = false;\n+++|         serviceProviders[provider].active = true;\n"
 		},
@@ -446,7 +446,7 @@
 			"replace": "",
 			"operator": "CCD",
 			"status": "stillborn",
-			"testingTime": 619,
+			"testingTime": 981,
 			"id": "mbc051136",
 			"diff": "---| constructor(address _universit ... g.sender, 3_000 * UNIT);     }\n+++| \n"
 		},
@@ -461,7 +461,7 @@
 			"replace": "/* emit TokensMinted(to, amount); */",
 			"operator": "EED",
 			"status": "live",
-			"testingTime": 1965,
+			"testingTime": 2791,
 			"id": "m95fd4816",
 			"diff": "---|         emit TokensMinted(to, amount);\n+++|         /* emit TokensMinted(to, amount); */\n"
 		},
@@ -476,7 +476,7 @@
 			"replace": "/* emit StudentAdded(student); */",
 			"operator": "EED",
 			"status": "live",
-			"testingTime": 1901,
+			"testingTime": 2764,
 			"id": "m341796b8",
 			"diff": "---|         emit StudentAdded(student);\n+++|         /* emit StudentAdded(student); */\n"
 		},
@@ -491,7 +491,7 @@
 			"replace": "/* emit StudentRemoved(student); */",
 			"operator": "EED",
 			"status": "live",
-			"testingTime": 1975,
+			"testingTime": 2980,
 			"id": "m6cc19328",
 			"diff": "---|         emit StudentRemoved(student);\n+++|         /* emit StudentRemoved(student); */\n"
 		},
@@ -506,7 +506,7 @@
 			"replace": "/* emit ServiceProviderAdded(provider, name, category); */",
 			"operator": "EED",
 			"status": "live",
-			"testingTime": 1861,
+			"testingTime": 2723,
 			"id": "mf2b4dfb8",
 			"diff": "---|         emit ServiceProviderAdded(provider, name, category);\n+++|         /* emit ServiceProviderAdded(provider, name, category); */\n"
 		},
@@ -521,7 +521,7 @@
 			"replace": "/* emit ServiceProviderRemoved(provider); */",
 			"operator": "EED",
 			"status": "live",
-			"testingTime": 2082,
+			"testingTime": 2773,
 			"id": "mb0c9f2b2",
 			"diff": "---|         emit ServiceProviderRemoved(provider);\n+++|         /* emit ServiceProviderRemoved(provider); */\n"
 		},
@@ -536,24 +536,9 @@
 			"replace": "/* emit ServiceProviderUpdated(provider, newName, newCategory, active); */",
 			"operator": "EED",
 			"status": "live",
-			"testingTime": 2028,
+			"testingTime": 2487,
 			"id": "m7bea5783",
 			"diff": "---|         emit ServiceProviderUpdated(provider, newName, newCategory, active);\n+++|         /* emit ServiceProviderUpdated(provider, newName, newCategory, active); */\n"
-		},
-		{
-			"file": "/home/morena/GitHub/SuMo-Demo/contracts/CampusCoin.sol",
-			"functionName": "payService",
-			"start": 3987,
-			"end": 4041,
-			"startLine": 122,
-			"endLine": 122,
-			"original": "emit ServicePaid(msg.sender, to, amountAfterFee, fee);",
-			"replace": "/* emit ServicePaid(msg.sender, to, amountAfterFee, fee); */",
-			"operator": "EED",
-			"status": "live",
-			"testingTime": 1923,
-			"id": "m650ddb2f",
-			"diff": "---|         emit ServicePaid(msg.sender, to, amountAfterFee, fee);\n+++|         /* emit ServicePaid(msg.sender, to, amountAfterFee, fee); */\n"
 		},
 		{
 			"file": "/home/morena/GitHub/SuMo-Demo/contracts/CampusCoin.sol",
@@ -566,7 +551,7 @@
 			"replace": "/* require(msg.sender == admin, \"Only admin can call this\"); */",
 			"operator": "EHD",
 			"status": "killed",
-			"testingTime": 1896,
+			"testingTime": 2200,
 			"id": "m48dd8653",
 			"diff": "---|         require(msg.sender == admin, \"Only admin can call this\");\n+++|         /* require(msg.sender == admin, \"Only admin can call this\"); */\n"
 		},
@@ -581,7 +566,7 @@
 			"replace": "/* require(isStudent[to], \"Can only mint to registered students\"); */",
 			"operator": "EHD",
 			"status": "killed",
-			"testingTime": 1892,
+			"testingTime": 2299,
 			"id": "m6a31d18b",
 			"diff": "---|         require(isStudent[to], \"Can only mint to registered students\");\n+++|         /* require(isStudent[to], \"Can only mint to registered students\"); */\n"
 		},
@@ -596,7 +581,7 @@
 			"replace": "/* require(isStudent[to], \"Recipient must be a registered student\"); */",
 			"operator": "EHD",
 			"status": "killed",
-			"testingTime": 1922,
+			"testingTime": 2266,
 			"id": "mc345c6f0",
 			"diff": "---|         require(isStudent[to], \"Recipient must be a registered student\");\n+++|         /* require(isStudent[to], \"Recipient must be a registered student\"); */\n"
 		},
@@ -611,7 +596,7 @@
 			"replace": "/* require(\n            bytes(serviceProviders[provider].name).length > 0,\n            \"Provider not found\"\n        ); */",
 			"operator": "EHD",
 			"status": "killed",
-			"testingTime": 1854,
+			"testingTime": 2197,
 			"id": "ma062ecaf",
 			"diff": "---| require(             bytes(ser ... Provider not found\"         );\n+++| /* require(             bytes( ... vider not found\"         ); */\n"
 		},
@@ -626,7 +611,7 @@
 			"replace": "/* require(isStudent[msg.sender], \"Only registered students can pay\"); */",
 			"operator": "EHD",
 			"status": "killed",
-			"testingTime": 1926,
+			"testingTime": 2338,
 			"id": "m6a9fb2ad",
 			"diff": "---|         require(isStudent[msg.sender], \"Only registered students can pay\");\n+++|         /* require(isStudent[msg.sender], \"Only registered students can pay\"); */\n"
 		},
@@ -641,7 +626,7 @@
 			"replace": "/* require(\n            serviceProviders[to].active,\n            \"Recipient must be an active service provider\"\n        ); */",
 			"operator": "EHD",
 			"status": "killed",
-			"testingTime": 1872,
+			"testingTime": 2249,
 			"id": "m5531ca1f",
 			"diff": "---| require(             servicePr ... e service provider\"         );\n+++| /* require(             servic ... ervice provider\"         ); */\n"
 		},
@@ -656,7 +641,7 @@
 			"replace": "super.send",
 			"operator": "ETR",
 			"status": "stillborn",
-			"testingTime": 690,
+			"testingTime": 782,
 			"id": "m813d8fe1",
 			"diff": "---|         return super.transfer(to, amount * UNIT);\n+++|         return super.send(to, amount * UNIT);\n"
 		},
@@ -671,7 +656,7 @@
 			"replace": "super.call{value: to}(\"\")",
 			"operator": "ETR",
 			"status": "stillborn",
-			"testingTime": 670,
+			"testingTime": 726,
 			"id": "m86b855be",
 			"diff": "---|         return super.transfer(to, amount * UNIT);\n+++|         return super.call{value: to}(\"\");\n"
 		},
@@ -686,7 +671,7 @@
 			"replace": "/*_mint(to, amount * UNIT);*/",
 			"operator": "FCD",
 			"status": "killed",
-			"testingTime": 1863,
+			"testingTime": 2252,
 			"id": "m9a5799b7",
 			"diff": "---|         _mint(to, amount * UNIT);        \n+++|         /*_mint(to, amount * UNIT);*/        \n"
 		},
@@ -701,7 +686,7 @@
 			"replace": "/*_burn(msg.sender, amount * UNIT);*/",
 			"operator": "FCD",
 			"status": "killed",
-			"testingTime": 1801,
+			"testingTime": 2344,
 			"id": "m11ef6a60",
 			"diff": "---|         _burn(msg.sender, amount * UNIT);        \n+++|         /*_burn(msg.sender, amount * UNIT);*/        \n"
 		},
@@ -716,7 +701,7 @@
 			"replace": "/*_transfer(msg.sender, university, fee);*/",
 			"operator": "FCD",
 			"status": "live",
-			"testingTime": 2024,
+			"testingTime": 2197,
 			"id": "m88a18980",
 			"diff": "---|         _transfer(msg.sender, university, fee);\n+++|         /*_transfer(msg.sender, university, fee);*/\n"
 		},
@@ -731,7 +716,7 @@
 			"replace": "/*_transfer(msg.sender, to, amountAfterFee);*/",
 			"operator": "FCD",
 			"status": "killed",
-			"testingTime": 1975,
+			"testingTime": 2405,
 			"id": "m1b92d54c",
 			"diff": "---|         _transfer(msg.sender, to, amountAfterFee);\n+++|         /*_transfer(msg.sender, to, amountAfterFee);*/\n"
 		},
@@ -746,7 +731,7 @@
 			"replace": "9",
 			"operator": "ILR",
 			"status": "killed",
-			"testingTime": 1870,
+			"testingTime": 2187,
 			"id": "m0d654afb",
 			"diff": "---|     uint256 public constant UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin\n+++|     uint256 public constant UNIT = 9 ** 18; // Token unit, representing 1 CampusCoin\n"
 		},
@@ -761,7 +746,7 @@
 			"replace": "11",
 			"operator": "ILR",
 			"status": "killed",
-			"testingTime": 1945,
+			"testingTime": 2238,
 			"id": "mbdc63895",
 			"diff": "---|     uint256 public constant UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin\n+++|     uint256 public constant UNIT = 11 ** 18; // Token unit, representing 1 CampusCoin\n"
 		},
@@ -776,7 +761,7 @@
 			"replace": "17",
 			"operator": "ILR",
 			"status": "killed",
-			"testingTime": 1953,
+			"testingTime": 2274,
 			"id": "m6773db58",
 			"diff": "---|     uint256 public constant UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin\n+++|     uint256 public constant UNIT = 10 ** 17; // Token unit, representing 1 CampusCoin\n"
 		},
@@ -791,7 +776,7 @@
 			"replace": "19",
 			"operator": "ILR",
 			"status": "killed",
-			"testingTime": 1916,
+			"testingTime": 2286,
 			"id": "m8198cf06",
 			"diff": "---|     uint256 public constant UNIT = 10 ** 18; // Token unit, representing 1 CampusCoin\n+++|     uint256 public constant UNIT = 10 ** 19; // Token unit, representing 1 CampusCoin\n"
 		},
@@ -806,7 +791,7 @@
 			"replace": "1",
 			"operator": "ILR",
 			"status": "live",
-			"testingTime": 1876,
+			"testingTime": 2145,
 			"id": "m6860c7d8",
 			"diff": "---|             bytes(serviceProviders[provider].name).length > 0,\n+++|             bytes(serviceProviders[provider].name).length > 1,\n"
 		},
@@ -821,7 +806,7 @@
 			"replace": "99",
 			"operator": "ILR",
 			"status": "live",
-			"testingTime": 1899,
+			"testingTime": 2304,
 			"id": "mfa087bd9",
 			"diff": "---|         uint256 fee = (amount / 100) * UNIT; // 1%\n+++|         uint256 fee = (amount / 99) * UNIT; // 1%\n"
 		},
@@ -836,7 +821,7 @@
 			"replace": "101",
 			"operator": "ILR",
 			"status": "live",
-			"testingTime": 1856,
+			"testingTime": 2353,
 			"id": "m989db9aa",
 			"diff": "---|         uint256 fee = (amount / 100) * UNIT; // 1%\n+++|         uint256 fee = (amount / 101) * UNIT; // 1%\n"
 		},
@@ -851,7 +836,7 @@
 			"replace": "constructor(address _university)  ",
 			"operator": "MOD",
 			"status": "stillborn",
-			"testingTime": 671,
+			"testingTime": 746,
 			"id": "mf27ca464",
 			"diff": "---|     constructor(address _university) ERC20(\"CampusCoin\", \"CC\") {\n+++|     constructor(address _university)  {\n"
 		},
@@ -866,7 +851,7 @@
 			"replace": "function mint(address to, uint256 amount) public  ",
 			"operator": "MOD",
 			"status": "killed",
-			"testingTime": 1870,
+			"testingTime": 2117,
 			"id": "m923bf3ef",
 			"diff": "---|     function mint(address to, uint256 amount) public onlyAdmin {\n+++|     function mint(address to, uint256 amount) public  {\n"
 		},
@@ -881,7 +866,7 @@
 			"replace": "function addStudent(address student) external  ",
 			"operator": "MOD",
 			"status": "killed",
-			"testingTime": 1899,
+			"testingTime": 2316,
 			"id": "mf09d6d51",
 			"diff": "---|     function addStudent(address student) external onlyAdmin {\n+++|     function addStudent(address student) external  {\n"
 		},
@@ -896,7 +881,7 @@
 			"replace": "function removeStudent(address student) external  ",
 			"operator": "MOD",
 			"status": "killed",
-			"testingTime": 1857,
+			"testingTime": 2276,
 			"id": "m9303d8c2",
 			"diff": "---|     function removeStudent(address student) external onlyAdmin {\n+++|     function removeStudent(address student) external  {\n"
 		},
@@ -911,7 +896,7 @@
 			"replace": "function addServiceProvider(address provider, string calldata name, string calldata category ) external  ",
 			"operator": "MOD",
 			"status": "killed",
-			"testingTime": 1952,
+			"testingTime": 2290,
 			"id": "m8da95e2f",
 			"diff": "---|     function addServiceProvider(address provider, string calldata name, string calldata category ) external onlyAdmin {\n+++|     function addServiceProvider(address provider, string calldata name, string calldata category ) external  {\n"
 		},
@@ -926,7 +911,7 @@
 			"replace": "function removeServiceProvider(address provider) external  ",
 			"operator": "MOD",
 			"status": "killed",
-			"testingTime": 1928,
+			"testingTime": 2229,
 			"id": "ma56c3b70",
 			"diff": "---|     function removeServiceProvider(address provider) external onlyAdmin {\n+++|     function removeServiceProvider(address provider) external  {\n"
 		},
@@ -941,7 +926,7 @@
 			"replace": "function updateServiceProvider(\n        address provider,\n        string calldata newName,\n        string calldata newCategory,\n        bool active\n    ) external  ",
 			"operator": "MOD",
 			"status": "killed",
-			"testingTime": 1945,
+			"testingTime": 2354,
 			"id": "m045de5ff",
 			"diff": "---| ) external onlyAdmin {\n+++| ) external  {\n"
 		},
@@ -956,7 +941,7 @@
 			"replace": "",
 			"operator": "ORFD",
 			"status": "killed",
-			"testingTime": 1917,
+			"testingTime": 2152,
 			"id": "me77f124a",
 			"diff": "---| function transfer(         add ... sfer(to, amount * UNIT);     }\n+++| \n"
 		},
@@ -971,7 +956,7 @@
 			"replace": "super.transfer(to, amount * UNIT);",
 			"operator": "RSD",
 			"status": "live",
-			"testingTime": 1944,
+			"testingTime": 2339,
 			"id": "mdccd0451",
 			"diff": "---|         return super.transfer(to, amount * UNIT);\n+++|         super.transfer(to, amount * UNIT);\n"
 		},
@@ -986,7 +971,7 @@
 			"replace": "",
 			"operator": "SKID",
 			"status": "killed",
-			"testingTime": 2076,
+			"testingTime": 2484,
 			"id": "m551cc0e1",
 			"diff": "---|         return super.transfer(to, amount * UNIT);\n+++|         return transfer(to, amount * UNIT);\n"
 		},
@@ -1001,7 +986,7 @@
 			"replace": "\"\"",
 			"operator": "SLR",
 			"status": "killed",
-			"testingTime": 1926,
+			"testingTime": 2122,
 			"id": "m6970ec6d",
 			"diff": "---|     constructor(address _university) ERC20(\"CampusCoin\", \"CC\") {\n+++|     constructor(address _university) ERC20(\"\", \"CC\") {\n"
 		},
@@ -1016,7 +1001,7 @@
 			"replace": "\"\"",
 			"operator": "SLR",
 			"status": "killed",
-			"testingTime": 1744,
+			"testingTime": 2164,
 			"id": "m3e8f505b",
 			"diff": "---|     constructor(address _university) ERC20(\"CampusCoin\", \"CC\") {\n+++|     constructor(address _university) ERC20(\"CampusCoin\", \"\") {\n"
 		}

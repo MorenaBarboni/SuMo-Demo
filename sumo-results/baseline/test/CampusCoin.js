@@ -30,6 +30,49 @@ describe("CampusCoin", function () {
     });
   });
 
+  describe("Custom ERC-20", () => {
+    before(async () => {
+      await campusCoin.addStudent(student1.address);
+      await campusCoin.addStudent(student2.address);
+    });
+
+    it("Should mint tokens to student", async () => {
+      await campusCoin.mint(student1.address, "100");
+      const balance = await campusCoin.balanceOf(student1.address);
+      expect(balance).to.equal(ethers.parseUnits("100", 18));
+    });
+
+    it("Should not mint tokens to non-student", async () => {
+      await expect(
+        campusCoin.connect(student1).mint(student2.address, "1")
+      ).to.be.revertedWith("Only admin can call this");
+    });
+
+    it("Should not mint tokens from non-admin", async () => {
+      await expect(
+        campusCoin.mint(provider.address, "50")
+      ).to.be.revertedWith("Can only mint to registered students");
+    });
+
+    it("Should burn tokens", async () => {
+      await campusCoin.connect(student1).burn("50");
+      const balance = await campusCoin.balanceOf(student1.address);
+      expect(balance).to.equal(ethers.parseUnits("50", 18));
+    });
+
+    it("Should transfer between students", async () => {
+      await campusCoin.connect(student1).transfer(student2.address, "10");
+      const balance = await campusCoin.balanceOf(student2.address);
+      expect(balance).to.equal(ethers.parseUnits("10", 18));
+    });
+
+    it("Should not transfer to non-student", async () => {
+      await expect(
+        campusCoin.connect(student1).transfer(provider.address, "10")
+      ).to.be.revertedWith("Recipient must be a registered student");
+    });
+  });
+
   describe("Student management", () => {
 
     it("Should add and remove student", async () => {
@@ -51,48 +94,6 @@ describe("CampusCoin", function () {
     });
   });
 
-  describe("Custom ERC-20", () => {
-    before(async () => {
-      await campusCoin.addStudent(student1.address);
-      await campusCoin.addStudent(student2.address);
-    });
-
-    it("Should mint tokens to student", async () => {
-      await campusCoin.mint(student1.address, "100");
-      const balance = await campusCoin.balanceOf(student1.address);
-      //expect(balance).to.equal("100");
-    });
-
-    it("Should not mint tokens to non-student", async () => {
-      await expect(
-        campusCoin.connect(student1).mint(student2.address, "1")
-      ).to.be.revertedWith("Only admin can call this");
-    });
-
-    it("Should not mint tokens from non-admin", async () => {
-      await expect(
-        campusCoin.mint(provider.address, "50")
-      ).to.be.revertedWith("Can only mint to registered students");
-    });
-
-    it("Should burn tokens", async () => {
-      await campusCoin.connect(student1).burn("50");
-      const balance = await campusCoin.balanceOf(student1.address);
-      expect(balance).to.equal("50000000000000000000");
-    });
-
-    it("Should transfer between students", async () => {
-      await campusCoin.connect(student1).transfer(student2.address, "10");
-      const balance = await campusCoin.balanceOf(student2.address);
-      expect(balance).to.equal("10000000000000000000");
-    });
-
-    it("Should not transfer to non-student", async () => {
-      await expect(
-        campusCoin.connect(student1).transfer(provider.address, "10")
-      ).to.be.revertedWith("Recipient must be a registered student");
-    });
-  });
 
   describe("Service Provider management", () => {
 
@@ -149,17 +150,15 @@ describe("CampusCoin", function () {
     });
 
     it("Should pay service", async () => {
-      const amount = 1n;
+      const amount = "1";
       await campusCoin.connect(student1).payService(provider.address, amount);
 
-      const providerBal = await campusCoin.balanceOf(provider.address);
+      const providerBalance = await campusCoin.balanceOf(provider.address);
       const studentSpent = await campusCoin.totalSpent(student1.address);
 
-      expect(providerBal).to.equal(amount * 10n ** 18n);
-      //expect(universityBal).to.equal(fee);
-      expect(studentSpent).to.equal(amount * 10n ** 18n);
+      expect(providerBalance).to.equal(ethers.parseUnits(amount, 18));
+      expect(studentSpent).to.equal(ethers.parseUnits(amount, 18));
     });
-
 
     it("Should fail if payment sender is not a student", async () => {
       await expect(

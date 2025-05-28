@@ -118,7 +118,6 @@ contract CampusCoin is ERC20 {
         _transfer(msg.sender, university, fee);
         _transfer(msg.sender, to, amountAfterFee);
 
-        totalSpent[msg.sender] += amount * UNIT;
-        emit ServicePaid(msg.sender, to, amountAfterFee, fee);
+        totalSpent[msg.sender] += amount * UNIT;        
     }
 }
